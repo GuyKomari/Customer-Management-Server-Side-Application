@@ -22,7 +22,7 @@ Useful URLs for application use:
 
 TODO:
 1. Create objects for the customer variables - address, name and phone.
-2. Add transactions class - customers shuld do some transactions.
+2. Add transactions class - customers should do some transactions.
 3. Add Angular based client-side that use the customer management REST API to manage customers.
 This is a simple customer management server-side application.
 
