@@ -1,0 +1,17 @@
+This is a simple customer management server-side application.
+
+Implemented by and with the following tools:
+ - Spring Boot 
+ - REST API with JSON
+ - Swagger and Swagger-UI
+ - Hibernate JPA connection with H2 Database
+ - Docker Plug-in
+ - DevTools
+ - HATEOAS
+
+Useful URLs for application use:
+	http://localhost:8080/customers
+	http://localhost:8080/customers/{id}
+	http://localhost:8080/h2-console
+	http://localhost:8080/swagger-ui.html#/
+ 
