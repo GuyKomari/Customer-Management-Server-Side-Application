@@ -23,11 +23,11 @@ public class Customer
 	@GeneratedValue
 	private Long id;
 	
-	@Size(min=2, message="The name should contians atleast 2 characters")
-	@ApiModelProperty(notes="The name should contians atleast 2 characters")
+	@Size(min=2, message="The name should ccontains at least 2 characters")
+	@ApiModelProperty(notes="The name should contains at least 2 characters")
 	private String name;
 	
-	@Size(min=9, message="The phone number should contians atleast 9 characters")
+	@Size(min=9, message="The phone number should contains at least 9 characters")
 	private String phone;
 	
 	private String address;
