@@ -14,8 +14,6 @@ Implemented by the following frameworks and tools:
  - Actuator
 
 Links for application use:
- - http://localhost:8080/customers
- - http://localhost:8080/customers/{id}
  - http://localhost:8080/h2-console
  - http://localhost:8080/swagger-ui.html#/
 	
