@@ -1,8 +1,9 @@
 # Customer-Management-Server-Side-Application
 
-This is a simple customer management server-side application.
+This project is a simple customer management server-side application,
+Implemented by the following frameworks and tools:
 
-Implemented by and with the following tools:
+ - Maven 
  - Spring Boot 
  - REST API with JSON
  - Swagger and Swagger-UI
@@ -10,18 +11,14 @@ Implemented by and with the following tools:
  - Docker Plug-in
  - DevTools
  - HATEOAS
+ - Actuator
 
-Useful URLs for application use:
-	http://localhost:8080/customers
-	http://localhost:8080/customers/{id}
-	http://localhost:8080/h2-console
-	http://localhost:8080/swagger-ui.html#/
+Links for application use:
+ - http://localhost:8080/customers
+ - http://localhost:8080/customers/{id}
+ - http://localhost:8080/h2-console
+ - http://localhost:8080/swagger-ui.html#/
 	
-	
-	
-
 TODO:
-1. Create objects for the customer variables - address, name and phone.
-2. Add transaction class - customers should make some transactions.
-3. Add Angular based client-side that use the customer management REST API to manage customers.
+Add Angular based client-side that use the customer management REST API to manage customers.
 
