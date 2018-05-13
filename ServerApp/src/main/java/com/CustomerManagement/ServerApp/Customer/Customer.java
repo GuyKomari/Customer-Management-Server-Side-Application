@@ -1,10 +1,15 @@
 package com.CustomerManagement.ServerApp.Customer;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Description: this class represents the Customer object
@@ -15,24 +20,33 @@ import io.swagger.annotations.ApiModel;
 public class Customer 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 	
+	@Size(min=2, message="The name should contians atleast 2 characters")
+	@ApiModelProperty(notes="The name should contians atleast 2 characters")
 	private String name;
 	
-	private String address; //TODO: Address class
-	
+	@Size(min=9, message="The phone number should contians atleast 9 characters")
 	private String phone;
+	
+	private String address;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Transaction> transactions;
+	
+	/**
+	 * Default constructor for JPA
+	 */
 	protected Customer() {
 
 	}
-
-	public Customer(String name, String address, String phone) {
+	
+	public Customer(String name, String phone, String address) {
 		super();
 		this.name = name;
-		this.address = address;
 		this.phone = phone;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -51,14 +65,6 @@ public class Customer
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -67,9 +73,28 @@ public class Customer
 		this.phone = phone;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + "]";
+	public String getAddress() {
+		return address;
 	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone
+				+ ", address=" + address + "]";
+	}
+	
+	
 }
+

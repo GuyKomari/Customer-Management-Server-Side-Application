@@ -21,35 +21,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.CustomerManagement.ServerApp.Exception.CustomerNotFoundException;
+import com.CustomerManagement.ServerApp.Exception.*;
+
 
 /**
- * Description: this class is the customer rest controller
+ * Description: This class is the customer rest controller - 
+ * 				Implements the functionality for customer and transaction entities
  */
 @RestController
 public class CustomerRestController
 {
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerRepository CustomerRepository;
+	
+	@Autowired
+	private TransactionRepository TransactionRepository;
+	
 	
 	/**
-	 * retrieve all customers
+	 * Retrieve all the customers
 	 * @return all the customers
 	 */
 	@GetMapping("/customers")
 	public List<Customer> retrieveAllCustomers() {
 		
-		return customerRepository.findAll();
+		return CustomerRepository.findAll();
 	}
 	/**
-	 * retrieve customer details by his id 
+	 * Retrieve specific customer details by given id 
 	 * @param id - customer id
 	 * @return customer details
 	 */
 	@GetMapping("/customers/{id}")
-	public Resource<Customer> retrieveUser(@PathVariable long id) 
+	public Resource<Customer> retrieveCustomer(@PathVariable long id) 
 	{
-		Optional<Customer> customer = customerRepository.findById(id);
+		Optional<Customer> customer = CustomerRepository.findById(id);
 
 		if (!customer.isPresent())
 			throw new CustomerNotFoundException("customer with id - " + id + " not found");
@@ -63,24 +69,24 @@ public class CustomerRestController
 		return resource;
 	}
 	/**
-	 * delete a customer 
+	 * Delete customer 
 	 * @param id - customer id 
 	 */
 	@DeleteMapping("/customers/{id}")
-	public void deleteUser(@PathVariable long id) 
+	public void deleteCustomer(@PathVariable long id) 
 	{
-		customerRepository.deleteById(id);
+		CustomerRepository.deleteById(id);
 	}
 
 	/**
-	 * for create or update customer
+	 * Create new customer
 	 * @param customer - customer object
 	 * @return customer details
 	 */
 	@PostMapping("/customers")
-	public ResponseEntity<Object> createUser(@Valid @RequestBody Customer customer) 
+	public ResponseEntity<Object> createCustomer(@Valid @RequestBody Customer customer) 
 	{
-		Customer savedCustomer = customerRepository.save(customer);
+		Customer savedCustomer = CustomerRepository.save(customer);
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
@@ -90,4 +96,43 @@ public class CustomerRestController
 		return ResponseEntity.created(location).build();
 	}
 
+	@GetMapping("/customers/{id}/transactions")
+	public List<Transaction> retrieveCustomerTransactions(@PathVariable long id)
+	{
+		Optional<Customer> optionalCustomer = CustomerRepository.findById(id);
+		if (!optionalCustomer.isPresent())
+			throw new CustomerNotFoundException("customer with id - " + id + " not found");
+		
+		return optionalCustomer.get().getTransactions();
+		
+	}
+	
+	@PostMapping("/customers/{id}/transactions")
+	public ResponseEntity<Object> createTransaction(@PathVariable long id, @RequestBody Transaction transaction)
+	{
+		Optional<Customer> optionalCustomer = CustomerRepository.findById(id);
+		if (!optionalCustomer.isPresent())
+			throw new CustomerNotFoundException("customer with id - " + id + " not found");
+		
+		Customer customer = optionalCustomer.get();
+		
+		transaction.setCustomer(customer);
+		
+		TransactionRepository.save(transaction);
+		
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(transaction.getId())
+				.toUri();
+
+		return ResponseEntity.created(location).build();
+	}
+	
+	@DeleteMapping("/transactions/{id}")
+	public void deleteTransaction(@PathVariable long id) 
+	{
+		TransactionRepository.deleteById(id);
+	}
+	
 }
