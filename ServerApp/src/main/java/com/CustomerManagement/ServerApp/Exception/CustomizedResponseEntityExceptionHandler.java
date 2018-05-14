@@ -32,7 +32,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 	
 	@ExceptionHandler(CustomerNotFoundException.class)
-	public final ResponseEntity<Object> handleUserNotFoundException(CustomerNotFoundException ex, WebRequest request) 
+	public final ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException ex, WebRequest request) 
 	{
 		ExceptionResponse exceptionResponsenew = 
 				new ExceptionResponse(new Date(), ex.getMessage(),
