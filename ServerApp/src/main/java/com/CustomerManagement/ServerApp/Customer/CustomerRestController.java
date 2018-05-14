@@ -95,6 +95,31 @@ public class CustomerRestController
 
 		return ResponseEntity.created(location).build();
 	}
+	
+
+	/**
+	 * update an existing customer
+	 * @param customer - customer object
+	 * @return customer details
+	*/
+/*
+	@PutMapping("/customers/{id}")
+	public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer, @PathVariable long id) {
+
+		Optional<Customer> customerOptional = CustomerRepository.findById(id);
+
+		if (!customerOptional.isPresent())
+			return ResponseEntity.notFound().build();
+
+		customer.setId(id);
+		
+		CustomerRepository.save(customer);
+
+		return ResponseEntity.noContent().build();
+	}
+*/
+	
+	//Transaction functionality
 
 	@GetMapping("/customers/{id}/transactions")
 	public List<Transaction> retrieveCustomerTransactions(@PathVariable long id)
